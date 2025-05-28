@@ -18,9 +18,10 @@ hardware graphic feature. Detail steps as below:
 
 <1> echo the following content to local.conf:
 
-DISTRO_FEATURES:remove = "directfb "
+DISTRO_FEATURES:remove = "directfb"
 DISTRO_FEATURES:append = " x11 wayland pam"
 IMAGE_FEATURES:append = " weston"
+IMAGE_FEATURES:remove = "x11-base  x11-sato"
 MACHINE_HAS_VIVANTE_KERNEL_DRIVER_SUPPORT = "1"
 
 # QA check settings - a little stricter than the OE-Core defaults
@@ -32,13 +33,13 @@ ERROR_QA:append = " ${WARN_TO_ERROR_QA}"
 
 IMAGE_INSTALL:append = "  weston weston-init imx-pxp-g2d imx-g2d-samples weston-xwayland mesa-demos gstreamer1.0 gstreamer1.0-plugins-good gstreamer1.0-plugins-bad imx-gst1.0-plugin"
 
-PREFERRED_VERSION_weston:mx93-nxp-bsp = "12.0.4.imx"
+PREFERRED_VERSION_weston:mx93-nxp-bsp = "14.0.1.imx"
 PREFERRED_PROVIDER_virtual/libg2d:mx93-nxp-bsp ?= "imx-pxp-g2d"
-PREFERRED_VERSION_libdrm:mx93-nxp-bsp = "2.4.116.imx"
+PREFERRED_VERSION_libdrm:mx93-nxp-bsp = "2.4.123.imx"
+PREFERRED_VERSION_wayland-protocols:mx93-nxp-bsp = "1.37.imx"
 CUSTOMER_RECIPES:fsl-bsp-release += 'imx-g2d-samples'
 CUSTOMER_RECIPES:fsl-bsp-release += 'mesa'
 CUSTOMER_RECIPES:fsl-bsp-release += 'imx-pxp-g2d'
-CUSTOMER_RECIPES:fsl-bsp-release += 'wayland-protocols'
 CUSTOMER_RECIPES:fsl-bsp-release += 'weston-init'
 CUSTOMER_RECIPES:fsl-bsp-release += 'weston'
 CUSTOMER_RECIPES:freescale-layer += 'xwayland'
@@ -55,10 +56,10 @@ CUSTOMER_RECIPES:fsl-bsp-release += 'imx-codec'
 CUSTOMER_RECIPES:freescale-layer += 'imx-lib'
 CUSTOMER_RECIPES:openembedded-layer += 'opencl-icd-loader'
 CUSTOMER_RECIPES:openembedded-layer += 'opencl-headers'
-PREFERRED_VERSION_gstreamer1.0-plugins-base:mx93-nxp-bsp = "1.24.0.imx"
-PREFERRED_VERSION_gstreamer1.0-plugins-bad:mx93-nxp-bsp  = "1.24.0.imx"
-PREFERRED_VERSION_gstreamer1.0-plugins-good:mx93-nxp-bsp = "1.24.0.imx"
-PREFERRED_VERSION_gstreamer1.0:mx93-nxp-bsp = "1.24.0.imx"
+PREFERRED_VERSION_gstreamer1.0-plugins-base:mx93-nxp-bsp = "1.24.7.imx"
+PREFERRED_VERSION_gstreamer1.0-plugins-bad:mx93-nxp-bsp  = "1.24.7.imx"
+PREFERRED_VERSION_gstreamer1.0-plugins-good:mx93-nxp-bsp = "1.24.7.imx"
+PREFERRED_VERSION_gstreamer1.0:mx93-nxp-bsp = "1.24.7.imx"
 
 <2> startup we will find that weston starts under g2d acceleration
 
@@ -105,9 +106,9 @@ CUSTOMER_RECIPES:imx-machine-learning += 'tensorflow-lite-host-tools-native'
 CUSTOMER_RECIPES:imx-machine-learning += 'tensorflow-lite-ethosu-delegate'
 CUSTOMER_RECIPES:imx-machine-learning += 'flatbuffers'
 CUSTOMER_RECIPES:imx-machine-learning += 'python3-flatbuffers'
-PREFERRED_VERSION_flatbuffers:mx93-nxp-bsp = "23.5.26"
-PREFERRED_VERSION_python3-flatbuffers:mx93-nxp-bsp = "23.5.26"
-PREFERRED_VERSION_tensorflow-lite:mx93-nxp-bsp = "2.16.2"
+PREFERRED_VERSION_flatbuffers:mx93-nxp-bsp = "24.3.25"
+PREFERRED_VERSION_python3-flatbuffers:mx93-nxp-bsp = "24.3.25"
+PREFERRED_VERSION_tensorflow-lite:mx93-nxp-bsp = '2.18.0'
 
 IMAGE_INSTALL:append = " ethos-u-firmware ethos-u-driver-stack ethos-u-vela eiq-examples tensorflow-lite-ethosu-delegate python3-setuptools"
 
@@ -115,7 +116,7 @@ IMAGE_INSTALL:append = " ethos-u-firmware ethos-u-driver-stack ethos-u-vela eiq-
 
 cd /usr/bin/eiq-examples-git/image_classification
 mkdir -p ../models/
-cp /usr/bin/tensorflow-lite-2.14.0/examples/mobilenet_v1_1.0_224_quant.tflite ../models/
+cp /usr/bin/tensorflow-lite-2.18.0/examples/mobilenet_v1_1.0_224_quant.tflite ../models/
 
 root@nxp-imx9:/usr/bin/eiq-examples-git/image_classification# python3 label_image.py -d /usr/lib64/libethosu_delegate.so -i grace_hopper.bmp -l labels.txt
 INFO: Ethosu delegate: device_name set to /dev/ethosu0.
