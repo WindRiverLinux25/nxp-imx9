@@ -356,12 +356,19 @@ If can0 dumps data from can1, FLEXCAN feature works fine.
 1) Download the "ap1302_60fps_ar0144_27M_2Lane_awb_tuning.bin" file from
 https://github.com/ONSemiconductor/ap1302_binaries/tree/main/NXP_i.MX93
 
-2) Rename it to "ap1302.fw"
+2) Rename it to "ap1302_ar0144_single_fw.bin"
 
-3) After booting the Linux OS, copy the file to the target board under "/lib/firmware/imx/camera" and reboot.
+3) After booting the Linux OS, copy the file to the target board under "/lib/firmware/" and reboot.
 
 4) After system boots up again, run below command to preview video on screen
 
+	 # media-ctl -l "'ap1302 2-003c':2 -> 'csidev-4ae00000.csi':0 [1]"
+	 # media-ctl -V "'ap1302 2-003c':0 [fmt: UYVY8_1X16/1920x1080 field:none]"
+	 # media-ctl -V "'ap1302 2-003c':2 [fmt: UYVY8_1X16/1920x1080 field:none]"
+	 # media-ctl -V "'ar0144 0':0 [fmt: UYVY8_1X16/1920x1080 field:none]"
+	 # media-ctl -V "'csidev-4ae00000.csi':1 [fmt: UYVY8_1X16/1920x1080 field:none]"
+	 # media-ctl -V "'crossbar':2 [fmt: UYVY8_1X16/1920x1080 field:none]"
+	
 	 # gst-launch-1.0 -v v4l2src device=/dev/video0 ! "video/x-raw,format=YUY2,width=1280,height=800" ! queue ! waylandsink
 
 Note: In order to preview video on screen, user needs to build wrlinux-image-std-sato image
