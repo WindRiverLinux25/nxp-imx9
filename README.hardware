@@ -78,6 +78,8 @@ The following BSP features are validated and supported.
 3.2 Unsupported Features
 ------------------------
 
+	x TSN Qbu
+
 4. BSP Notes
 ============
 
