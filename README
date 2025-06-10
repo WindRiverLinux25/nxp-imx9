@@ -411,7 +411,7 @@ https://github.com/ONSemiconductor/ap1302_binaries/tree/main/NXP_i.MX93
 	 # media-ctl -V "'csidev-4ae00000.csi':1 [fmt: UYVY8_1X16/1920x1080 field:none]"
 	 # media-ctl -V "'crossbar':2 [fmt: UYVY8_1X16/1920x1080 field:none]"
 	
-	 # gst-launch-1.0 -v v4l2src device=/dev/video0 ! "video/x-raw,format=YUY2,width=1280,height=800" ! queue ! waylandsink
+	 # gst-launch-1.0 -v v4l2src device=/dev/video0 ! "video/x-raw,format=YUY2,width=1920,height=1080" ! queue ! waylandsink
 
 Note: In order to preview video on screen, user needs to build wrlinux-image-std-sato image
 
