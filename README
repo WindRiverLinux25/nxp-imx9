@@ -329,13 +329,55 @@ Connect a 4-segment headset with microphone to J13, and then run below command t
 
 	 # aplay -twav -r 48000 -Dhw:3,0 -c 6 record.wav
 
+5.7.5 Audio with codec WM8904(i.MX95-19x19-verdin)
+--------------------------------------------------
+
+J31 is a microphone interface
+
+1) Test audio playback with below command
+	aplay -l
+		card 2: wm8904audio [wm8904-audio], device 0: HiFi wm8904-hifi-0 [HiFi wm8904-hifi-0]
+			Subdevices: 1/1
+			Subdevice #0: subdevice #0
+
+	speaker-test -c2 -twav -Dhw:2,0
+
+2) Test audio record with below command
+
+         # arecord -l
+         ......
+	 arecord -l
+		**** List of CAPTURE Hardware Devices ****
+		card 0: btscoaudio [bt-sco-audio], device 0: sai-tx-rx-bt-sco-pcm-wb bt-sco-pcm-wb-0 [sai-tx-rx-bt-sco-pcm-wb bt-sco-pcm
+		-wb-0]
+		  Subdevices: 1/1
+		  Subdevice #0: subdevice #0
+		card 1: micfilaudio [micfil-audio], device 0: micfil hifi snd-soc-dummy-dai-0 [micfil hifi snd-soc-dummy-dai-0]
+		  Subdevices: 1/1
+		  Subdevice #0: subdevice #0
+		card 2: wm8904audio [wm8904-audio], device 0: HiFi wm8904-hifi-0 [HiFi wm8904-hifi-0]
+		  Subdevices: 1/1
+		  Subdevice #0: subdevice #0
+
+	arecord -Dplughw:2,0 -r 44100 -f S16_LE -c 2 -d 5 record.wav
+	aplay record.wav -Dhw:2,0
 
 5.8 FLEXCAN
 -----------
 
 Detail verification commands as below:
 
-Currently, imx93 J1101 is a can interface, 1-4 are 5V, CAN_H, CAN_L, and GND
+Currently
+ imx93 J1101 is a can interface, 1-4 are 5V, CAN_H, CAN_L, and GND.
+ imx95 J27 is a can0 interface, can1 is disabled by default due to pin conflict with PDM.
+     Since the pin numbers are not listed on the board, they are shown in the picture.
+	      -----
+	      |   |
+	      |   |
+	CAN_H |   | CAN_L
+	GND   |   | PIN1
+	      -----
+
 respectively. Please use a board that supports canfd function to connect, such as imx8qm-mek.
 
 Run below commands on imx93-evk board:
