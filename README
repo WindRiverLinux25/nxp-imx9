@@ -430,8 +430,12 @@ System switching to ND mode...
 
 cat /sys/devices/platform/imx93-lpm/mode
 
-5.11 TSN
---------
+5.11 TSN (Only i.MX93)
+----------------------
+
+NOTE. According to https://www.nxp.com/docs/en/release-note/RN00161.pdf,
+      chapter 5 Feature support matrix, the Real-time Networking part is
+      still not released on the i.MX95 platform.
 
 Use two imx93 boards end1 to connect
 
