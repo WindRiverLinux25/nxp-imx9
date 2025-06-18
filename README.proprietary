@@ -97,8 +97,8 @@ PREFERRED_VERSION_gstreamer1.0:mx9-nxp-bsp = "1.24.7.imx"
 
 <2> startup we will find that weston starts under g2d acceleration
 
-2.1.1 Gstreamer plug-in for PXP
--------------------------------
+2.1.1 Gstreamer plug-in for PXP (iMX93 Only)
+--------------------------------------------
 
 <1> Composition
 
@@ -122,6 +122,32 @@ PREFERRED_VERSION_gstreamer1.0:mx9-nxp-bsp = "1.24.7.imx"
 	sink_1::alpha=0.4 sink_0::xpos=0 sink_0::ypos=0 sink_0::width=320 sink_0::height=240 \
 	sink_1::xpos=120 sink_1::ypos=160 sink_1::width=480 sink_1::height=320 ! waylandsink videotestsrc ! \
 	comp.sink_0 videotestsrc ! comp.sink_1
+
+2.1.2 iMX95 os08a20
+-------------------
+
+Note. iMX95 use libcamera test os08a20 raw camera
+
+cam --camera 1 --stream width=3840,height=2160,pixelformat=SBGGR12 \
+	--capture=20 --file=picture.raw
+
+2.1.3 iMX95 VPU
+---------------
+
+# Add the following content after the graphics configuration
+IMAGE_INSTALL:append = " firmware-imx-vpu-wave"
+MACHINE_FIRMWARE:append:mx95-nxp-bsp  = " firmware-imx-vpu-wave"
+CUSTOMER_RECIPES:fsl-bsp-release += "firmware-imx"
+
+H264 Encode:
+	gst-launch-1.0 videotestsrc num-buffers=300 ! \
+		"video/x-raw,format=YUY2,width=3840,height=2160,framerate=60/1" \
+		! v4l2h264enc ! queue ! h264parse ! qtmux ! filesink location=yuv2h264.mp4
+
+H265 Encode:
+	gst-launch-1.0 videotestsrc num-buffers=300 ! \
+		"video/x-raw,format=YUY2,width=3840,height=2160,framerate=60/1" \
+		! v4l2h265enc ! queue ! h265parse ! qtmux ! filesink location=yuv2h265.mp4
 
 2.2 NPU & M33
 -------------
