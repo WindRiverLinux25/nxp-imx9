@@ -371,24 +371,17 @@ There is an official recommended BT/WIFI module(LBES5PL2EL, NXP IW612 chipset) f
 
 Add below contents into local.conf to support for WIFI feature.
 
-CUSTOMER_RECIPES:fsl-bsp-release += 'nxp-wlan-sdk'
-CUSTOMER_RECIPES:fsl-bsp-release += 'kernel-module-nxp-wlan'
-CUSTOMER_RECIPES:fsl-bsp-release += 'wireless-tools'
-IMAGE_INSTALL:append = " nxp-wlan-sdk kernel-module-nxp-wlan udev-extraconf"
+CUSTOMER_RECIPES:fsl-bsp-release += "kernel-module-nxp-wlan"
+CUSTOMER_RECIPES:fsl-bsp-release += "wireless-tools"
+CUSTOMER_RECIPES:fsl-bsp-release += "nxp-wlan-sdk"
+CUSTOMER_RECIPES:freescale-layer += "firmware-nxp-wifi"
+CUSTOMER_RECIPES:fsl-bsp-release += "imx-m7-demos"
+MACHINE_FEATURES:append:nxp-imx9 = " nxpwifi-all-pcie nxpwifi-all-sdio"
 
-2) Deploy WIFI firmware
+IMAGE_INSTALL:append = " kernel-module-nxp-wlan connman firmware-nxp-wifi-all-sdio firmware-nxp-wifi-all-pcie"
 
-Run below commands on PC to get firmware for NXP IW612 chipset.
-
-		# git clone https://github.com/nxp-imx/imx-firmware
-		# git checkout lf-6.6.3_1.0.0
-
-Copy firmware and conf into target rootfs, directory is /lib/firmware/nxp.
-
-		imx-firmware/nxp/FwImage_IW612_SD/*
-		imx-firmware/nxp/wifi_mod_para.conf*
-
-Note: create nxp directory if it doesb't exist under /lib/firmware/
+MACHINE_FIRMWARE:append:nxp-imx9 = " firmware-nxp-wifi-all-sdio"
+MACHINE_FIRMWARE:append:nxp-imx9 = " firmware-nxp-wifi-all-pcie"
 
 3) Run WIFI feature
 
