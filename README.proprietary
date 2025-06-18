@@ -149,31 +149,39 @@ H265 Encode:
 		"video/x-raw,format=YUY2,width=3840,height=2160,framerate=60/1" \
 		! v4l2h265enc ! queue ! h265parse ! qtmux ! filesink location=yuv2h265.mp4
 
-2.2 NPU & M33
--------------
+2.2 NPU for iMX9
+----------------
 
 <1> echo the following content to local.conf:
 
 Since some use cases also rely on graphics, this part is based on the 2.1
 graphics acceleration part.
 
+CUSTOMER_RECIPES:imx-machine-learning += 'tensorflow-lite'
+CUSTOMER_RECIPES:imx-machine-learning += 'tensorflow-lite-host-tools-native'
+CUSTOMER_RECIPES:imx-machine-learning += 'flatbuffers'
+CUSTOMER_RECIPES:imx-machine-learning += 'python3-flatbuffers'
+PREFERRED_VERSION_flatbuffers:mx9-nxp-bsp = "24.3.25"
+PREFERRED_VERSION_python3-flatbuffers:mx9-nxp-bsp = "24.3.25"
+PREFERRED_VERSION_tensorflow-lite:mx9-nxp-bsp = '2.18.0'
+
+# iMX93 configuration
+CUSTOMER_RECIPES:imx-machine-learning += 'tensorflow-lite-ethosu-delegate'
 CUSTOMER_RECIPES:imx-machine-learning += 'ethos-u-firmware'
 CUSTOMER_RECIPES:imx-machine-learning += 'ethos-u-driver-stack'
 CUSTOMER_RECIPES:imx-machine-learning += 'ethos-u-vela'
 CUSTOMER_RECIPES:imx-machine-learning += 'eiq-examples'
-CUSTOMER_RECIPES:imx-machine-learning += 'tensorflow-lite'
-CUSTOMER_RECIPES:imx-machine-learning += 'tensorflow-lite-host-tools-native'
-CUSTOMER_RECIPES:imx-machine-learning += 'tensorflow-lite-ethosu-delegate'
-CUSTOMER_RECIPES:imx-machine-learning += 'flatbuffers'
-CUSTOMER_RECIPES:imx-machine-learning += 'python3-flatbuffers'
-PREFERRED_VERSION_flatbuffers:mx93-nxp-bsp = "24.3.25"
-PREFERRED_VERSION_python3-flatbuffers:mx93-nxp-bsp = "24.3.25"
-PREFERRED_VERSION_tensorflow-lite:mx93-nxp-bsp = '2.18.0'
-
 IMAGE_INSTALL:append = " ethos-u-firmware ethos-u-driver-stack ethos-u-vela eiq-examples tensorflow-lite-ethosu-delegate python3-setuptools"
+
+# iMX95 configuration
+
+CUSTOMER_RECIPES:imx-machine-learning += 'neutron'
+IMAGE_INSTALL:append = " tensorflow-lite neutron tensorflow-lite-neutron-delegate"
+CUSTOMER_RECIPES:imx-machine-learning += 'tensorflow-lite-neutron-delegate'
 
 <2> startup & run following cmd:
 
+# iMX93 test
 cd /usr/bin/eiq-examples-git/image_classification
 mkdir -p ../models/
 cp /usr/bin/tensorflow-lite-2.18.0/examples/mobilenet_v1_1.0_224_quant.tflite ../models/
@@ -209,6 +217,25 @@ INFO: EthosuDelegate: 31 nodes delegated out of 31 nodes with 1 partitions.
 time: 4.131ms
 
 The current test result is about 4ms, which is about 20 times faster than without NPU.
+
+# iMX95 test
+cd /usr/bin/tensorflow-lite-2.18.0/examples
+python3 label_image.py --ext_delegate /usr/lib/libneutron_delegate.so
+
+Loading external delegate from /usr/lib/libneutron_delegate.so with args: {}
+INFO: NeutronDelegate delegate: 29 nodes delegated out of 31 nodes with 1 partitions.
+
+Error in cpuinfo: prctl(PR_SVE_GET_VL) failed
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+Warm-up time: 3.4 ms
+
+Inference time: 1.7 ms
+
+0.850980: military uniform
+0.058824: Windsor tie
+0.011765: bulletproof vest
+0.007843: bow tie
+0.007843: mortarboard
 
 2.3 imx-boot build
 ------------------
