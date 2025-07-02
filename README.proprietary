@@ -405,7 +405,7 @@ CUSTOMER_RECIPES:freescale-layer += "firmware-nxp-wifi"
 CUSTOMER_RECIPES:fsl-bsp-release += "imx-m7-demos"
 MACHINE_FEATURES:append:nxp-imx9 = " nxpwifi-all-pcie nxpwifi-all-sdio"
 
-IMAGE_INSTALL:append = " kernel-module-nxp-wlan connman firmware-nxp-wifi-all-sdio firmware-nxp-wifi-all-pcie"
+IMAGE_INSTALL:append = " kernel-module-nxp-wlan connman firmware-nxp-wifi-all-sdio firmware-nxp-wifi-all-pcie udev-extraconf"
 
 MACHINE_FIRMWARE:append:nxp-imx9 = " firmware-nxp-wifi-all-sdio"
 MACHINE_FIRMWARE:append:nxp-imx9 = " firmware-nxp-wifi-all-pcie"
