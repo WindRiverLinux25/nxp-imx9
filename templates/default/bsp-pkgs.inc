@@ -11,4 +11,5 @@ IMAGE_INSTALL += "openssl-engines"
 IMAGE_INSTALL += "iproute2-tc"
 IMAGE_INSTALL += "devmem2"
 IMAGE_INSTALL += "imx-secure-enclave"
+IMAGE_INSTALL += "v4l-utils"
 require conf/make_nxp_imx9_wic.inc
