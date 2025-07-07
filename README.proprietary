@@ -31,26 +31,27 @@ hardware graphic feature. Detail steps as below:
 	IMAGE_INSTALL:append = "  weston weston-init imx-pxp-g2d imx-g2d-samples weston-xwayland mesa-demos gstreamer1.0 gstreamer1.0-plugins-good gstreamer1.0-plugins-bad imx-gst1.0-plugin"
 
 # If iMX95 board
-	IMAGE_INSTALL:append = "  weston weston-init imx-g2d-samples weston-xwayland gstreamer1.0 gstreamer1.0-plugins-good gstreamer1.0-plugins-bad imx-gst1.0-plugin mali-imx gstreamer1.0-plugins-base-videotestsrc libcamera"
+	IMAGE_INSTALL:append = "  weston weston-init imx-g2d-samples weston-xwayland gstreamer1.0 gstreamer1.0-plugins-good gstreamer1.0-plugins-bad imx-gst1.0-plugin mali-imx gstreamer1.0-plugins-base-videotestsrc libcamera glmark2"
 
-PREFERRED_PROVIDER_virtual/libgl:imxgpu   ?= "mesa-gl"
-PREFERRED_PROVIDER_virtual/libgl:imxgpu3d  = "mesa-gl"
-PREFERRED_PROVIDER_virtual/mesa:imxgpu    ?= "mesa-gl"
-PREFERRED_PROVIDER_virtual/egl:mx95-nxp-bsp        ?= "mali-imx"
-PREFERRED_PROVIDER_virtual/libgles1:mx95-nxp-bsp   ?= "mali-imx"
-PREFERRED_PROVIDER_virtual/libgles2:mx95-nxp-bsp   ?= "mali-imx"
-PREFERRED_PROVIDER_virtual/libgles3:mx95-nxp-bsp   ?= "mali-imx"
-PREFERRED_PROVIDER_opencl-clhpp:mx95-nxp-bsp       ?= "opencl-clhpp"
-PREFERRED_PROVIDER_opencl-headers:mx95-nxp-bsp     ?= "opencl-headers"
-PREFERRED_PROVIDER_opencl-icd-loader:mx95-nxp-bsp  ?= "opencl-icd-loader"
-PREFERRED_PROVIDER_virtual/opencl-icd:mx95-nxp-bsp ?= "opencl-icd-loader"
-PREFERRED_PROVIDER_virtual/libg2d:mx95-nxp-bsp ?= "imx-dpu-g2d"
-CUSTOMER_RECIPES:fsl-bsp-release += 'imx-dpu-g2d'
-CUSTOMER_RECIPES:fsl-bsp-release += 'imx-secure-enclave-seco'
-CUSTOMER_RECIPES:fsl-bsp-release += 'imx-opencl-converter'
-CUSTOMER_RECIPES:fsl-bsp-release += 'mali-imx'
-CUSTOMER_RECIPES:fsl-sdk-release += 'libcamera'
-PREFERRED_VERSION_libcamera:mx95-nxp-bsp = "0.3.0.imx"
+	PREFERRED_PROVIDER_virtual/libgl:imxgpu   ?= "mesa-gl"
+	PREFERRED_PROVIDER_virtual/libgl:imxgpu3d  = "mesa-gl"
+	PREFERRED_PROVIDER_virtual/mesa:imxgpu    ?= "mesa-gl"
+	PREFERRED_PROVIDER_virtual/egl:mx95-nxp-bsp        ?= "mali-imx"
+	PREFERRED_PROVIDER_virtual/libgles1:mx95-nxp-bsp   ?= "mali-imx"
+	PREFERRED_PROVIDER_virtual/libgles2:mx95-nxp-bsp   ?= "mali-imx"
+	PREFERRED_PROVIDER_virtual/libgles3:mx95-nxp-bsp   ?= "mali-imx"
+	PREFERRED_PROVIDER_opencl-clhpp:mx95-nxp-bsp       ?= "opencl-clhpp"
+	PREFERRED_PROVIDER_opencl-headers:mx95-nxp-bsp     ?= "opencl-headers"
+	PREFERRED_PROVIDER_opencl-icd-loader:mx95-nxp-bsp  ?= "opencl-icd-loader"
+	PREFERRED_PROVIDER_virtual/opencl-icd:mx95-nxp-bsp ?= "opencl-icd-loader"
+	PREFERRED_PROVIDER_virtual/libg2d:mx95-nxp-bsp ?= "imx-dpu-g2d"
+	CUSTOMER_RECIPES:fsl-bsp-release += 'imx-dpu-g2d'
+	CUSTOMER_RECIPES:fsl-bsp-release += 'imx-secure-enclave-seco'
+	CUSTOMER_RECIPES:fsl-bsp-release += 'imx-opencl-converter'
+	CUSTOMER_RECIPES:fsl-bsp-release += 'mali-imx'
+	CUSTOMER_RECIPES:fsl-sdk-release += 'libcamera'
+	PREFERRED_VERSION_libcamera:mx95-nxp-bsp = "0.3.0.imx"
+	CUSTOMER_RECIPES:openembedded-layer += 'glmark2'
 
 #The following are common configurations
 
@@ -148,6 +149,11 @@ H265 Encode:
 	gst-launch-1.0 videotestsrc num-buffers=300 ! \
 		"video/x-raw,format=YUY2,width=3840,height=2160,framerate=60/1" \
 		! v4l2h265enc ! queue ! h265parse ! qtmux ! filesink location=yuv2h265.mp4
+
+2.1.4 iMX95 Mali GPU
+--------------------
+
+glmark2-es2-wayland --off-screen
 
 2.2 NPU for iMX9
 ----------------
