@@ -145,10 +145,20 @@ H264 Encode:
 		"video/x-raw,format=YUY2,width=3840,height=2160,framerate=60/1" \
 		! v4l2h264enc ! queue ! h264parse ! qtmux ! filesink location=yuv2h264.mp4
 
+H264 Decode:
+	gst-launch-1.0 filesrc \
+		location=${PATH}/yuv2h264.mp4 typefind=true ! video/quicktime ! \
+		aiurdemux name=demux demux. ! queue ! h264parse ! v4l2h264dec ! waylandsink
+
 H265 Encode:
 	gst-launch-1.0 videotestsrc num-buffers=300 ! \
 		"video/x-raw,format=YUY2,width=3840,height=2160,framerate=60/1" \
 		! v4l2h265enc ! queue ! h265parse ! qtmux ! filesink location=yuv2h265.mp4
+
+H265 Decode:
+	gst-launch-1.0 filesrc \
+		location=${PATH}/yuv2h265.mp4 typefind=true ! video/quicktime ! \
+		aiurdemux name=demux demux. ! queue ! h265parse ! v4l2h265dec ! waylandsink
 
 2.1.4 iMX95 Mali GPU
 --------------------
