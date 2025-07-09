@@ -1,4 +1,4 @@
-        MCIMX93-EVK Board Support Package
+        MCIMX93-EVK/MCIMX95-VERDIN-EVK Board Support Package
 
 1. About this document
 ======================
@@ -101,6 +101,7 @@ There is a default dtb to support for the most of features for MCIMX93-EVK board
 Besides the default dtb, there are also other dtb files to support for some specific
 features, sub-boards and accessory used to extend features. Detailed list as below:
 
+MCIMX93-EVK:
 	Default dtb:
 	tftp $fdt_addr imx93-11x11-evk.dtb
 
@@ -125,6 +126,16 @@ features, sub-boards and accessory used to extend features. Detailed list as bel
 	If user wants to enable lpuart:
 	tftp $fdt_addr imx93-11x11-evk-lpuart.dtb
 
+MCIMX95-VERDIN-EVK:
+	Default dtb:
+	tftp $fdt_addr imx95-19x19-verdin.dtb
+
+	If user wants to enable HDMI:
+	tftp $fdt_addr imx95-19x19-verdin-lt8912.dtb
+
+	If user wants to enable os08a20:
+	tftp $fdt_addr imx95-19x19-verdin-os08a20.dtb
+
 4.1.5 Set bootargs and boot the system
 --------------------------------------
 
@@ -136,6 +147,7 @@ features, sub-boards and accessory used to extend features. Detailed list as bel
 
 Note: for MCIMX93-EVK board, $kernel_addr="0x80400000", $fdt_addr="0x83000000"
 	$console_port = "ttyLP0,115200"
+      for MCIMX95-VERDIN-EVK board, $kernel_addr="0x90400000", $fdt_addr="0x93000000"
       The kernel image will become larger if more kernel code is compiled into kernel image.
       So, please increase "fdt_addr" value by putting dtb file at higher address if you encounter with kernel booting failed.
 
@@ -659,6 +671,14 @@ Then user can write the output image to a SD card.
 For MCIMX93-EVK board:
 
 u-boot=>setenv fdt_file imx93-11x11-evk.dtb
+u-boot=>setenv bootfile Image
+u-boot=>setenv bootargs "root=/dev/mmcblk1p2 rw rootdelay=5 console=${console},${baudrate} earlycon ip=dhcp"
+u-boot=>setenv bootcmd 'fatload mmc 1:1 $loadaddr $bootfile; fatload mmc 1:1 $fdt_addr $fdt_file; booti $loadaddr - $fdt_addr';
+u-boot=>run bootcmd
+
+For MCIMX95-VERDIN-EVK board:
+
+u-boot=>setenv fdt_file imx95-19x19-verdin.dtb
 u-boot=>setenv bootfile Image
 u-boot=>setenv bootargs "root=/dev/mmcblk1p2 rw rootdelay=5 console=${console},${baudrate} earlycon ip=dhcp"
 u-boot=>setenv bootcmd 'fatload mmc 1:1 $loadaddr $bootfile; fatload mmc 1:1 $fdt_addr $fdt_file; booti $loadaddr - $fdt_addr';
