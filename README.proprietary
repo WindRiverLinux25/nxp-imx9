@@ -28,10 +28,10 @@ hardware graphic feature. Detail steps as below:
 <1> echo the following content to local.conf:
 
 # If iMX93 board
-	IMAGE_INSTALL:append = "  weston weston-init imx-pxp-g2d imx-g2d-samples weston-xwayland mesa-demos gstreamer1.0 gstreamer1.0-plugins-good gstreamer1.0-plugins-bad imx-gst1.0-plugin"
+	IMAGE_INSTALL:append = "  weston weston-init imx-pxp-g2d imx-g2d-samples weston-xwayland mesa-demos gstreamer1.0 gstreamer1.0-plugins-good gstreamer1.0-plugins-bad imx-gst1.0-plugin vulkan-headers vulkan-loader"
 
 # If iMX95 board
-	IMAGE_INSTALL:append = "  weston weston-init imx-g2d-samples weston-xwayland gstreamer1.0 gstreamer1.0-plugins-good gstreamer1.0-plugins-bad imx-gst1.0-plugin mali-imx gstreamer1.0-plugins-base-videotestsrc libcamera glmark2"
+	IMAGE_INSTALL:append = "  weston weston-init imx-g2d-samples weston-xwayland gstreamer1.0 gstreamer1.0-plugins-good gstreamer1.0-plugins-bad imx-gst1.0-plugin mali-imx gstreamer1.0-plugins-base-videotestsrc libcamera glmark2 vulkan-headers vulkan-loader"
 
 	PREFERRED_PROVIDER_virtual/libgl:imxgpu   ?= "mesa-gl"
 	PREFERRED_PROVIDER_virtual/libgl:imxgpu3d  = "mesa-gl"
