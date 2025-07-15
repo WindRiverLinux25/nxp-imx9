@@ -244,7 +244,7 @@ with the bootloader.
 
 1) Burn WIC image
 # bitbake wrlinux-image-std
-# dd if=wrlinux-image-<std-sato/std>-nxp-imx8.wic of=/dev/your_sd_dev
+# dd if=wrlinux-image-<std-sato/std>-nxp-imx9.wic of=/dev/your_sd_dev
 
 2) run optee testing sample 
 
