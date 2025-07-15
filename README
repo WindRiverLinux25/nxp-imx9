@@ -26,7 +26,7 @@ is done automatically when using the Wind River configure wrapper.
 
 License
 -------
-Copyright (C) 2024 Wind River Systems, Inc.
+Copyright (C) 2025 Wind River Systems, Inc.
 
 Source code included in the tree for individual recipes is under the LICENSE
 stated in the associated recipe (.bb file) unless otherwise stated.
@@ -636,7 +636,7 @@ After system boots up, copy Image to the rootfs, and run below command:
 
 Note:
 - Before booting the dump-capture kernel, add "maxcpus=1 cma=128M" to the boot parameter.
-- Use Image as a secondary kernel. It can be found in the tmp-glibc/deploy/images/nxp-imx9/ directory.
+- Use Image as a secondary kernel. It can be found in the tmp/deploy/images/nxp-imx9/ directory.
 
 For more detailed info about kdump, refer to Documentation/kdump/kdump.txt
 in the kernel source tree.
