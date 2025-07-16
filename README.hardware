@@ -133,7 +133,7 @@ The following table shows the boot switch settings to boot from eMMC MTFC16GAKAE
 Switch  D1      D2      D3      D4
 SW1301  OFF     OFF     OFF     OFF
 
-4.2.3 MCIMX93-EVK (V1.2A 35728087)
+4.2.3 MCIMX95-VERDIN-EVK (V1.2A 35728087)
 
 1. Booting from SD card
 
