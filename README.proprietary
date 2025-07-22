@@ -236,7 +236,7 @@ The current test result is about 4ms, which is about 20 times faster than withou
 
 # iMX95 test
 cd /usr/bin/tensorflow-lite-2.18.0/examples
-python3 label_image.py --ext_delegate /usr/lib/libneutron_delegate.so
+python3 label_image.py --ext_delegate /usr/lib64/libneutron_delegate.so
 
 Loading external delegate from /usr/lib/libneutron_delegate.so with args: {}
 INFO: NeutronDelegate delegate: 29 nodes delegated out of 31 nodes with 1 partitions.
