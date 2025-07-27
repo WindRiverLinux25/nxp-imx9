@@ -28,7 +28,7 @@ hardware graphic feature. Detail steps as below:
 <1> echo the following content to local.conf:
 
 # If iMX93 board
-	IMAGE_INSTALL:append = "  weston weston-init imx-pxp-g2d imx-g2d-samples weston-xwayland mesa-demos gstreamer1.0 gstreamer1.0-plugins-good gstreamer1.0-plugins-bad imx-gst1.0-plugin vulkan-headers vulkan-loader"
+	IMAGE_INSTALL:append = "  weston weston-init imx-pxp-g2d imx-g2d-samples weston-xwayland mesa-demos gstreamer1.0 gstreamer1.0-plugins-good gstreamer1.0-plugins-bad imx-gst1.0-plugin vulkan-headers vulkan-loader gstreamer1.0-plugins-base-videotestsrc"
 
 # If iMX95 board
 	IMAGE_INSTALL:append = "  weston weston-init imx-g2d-samples weston-xwayland gstreamer1.0 gstreamer1.0-plugins-good gstreamer1.0-plugins-bad imx-gst1.0-plugin mali-imx gstreamer1.0-plugins-base-videotestsrc libcamera glmark2 vulkan-headers vulkan-loader"
@@ -81,20 +81,12 @@ CUSTOMER_RECIPES:freescale-layer += 'xwayland'
 CUSTOMER_RECIPES:fsl-bsp-release += 'linux-imx-headers'
 CUSTOMER_RECIPES:fsl-bsp-release += 'wayland-protocols'
 CUSTOMER_RECIPES:fsl-bsp-release += 'libdrm'
-CUSTOMER_RECIPES:fsl-bsp-release += 'gstreamer1.0'
-CUSTOMER_RECIPES:fsl-bsp-release += 'gstreamer1.0-plugins-base'
-CUSTOMER_RECIPES:fsl-bsp-release += 'gstreamer1.0-plugins-good'
-CUSTOMER_RECIPES:fsl-bsp-release += 'gstreamer1.0-plugins-bad'
 CUSTOMER_RECIPES:fsl-bsp-release += 'imx-gst1.0-plugin'
 CUSTOMER_RECIPES:fsl-bsp-release += 'imx-parser'
 CUSTOMER_RECIPES:fsl-bsp-release += 'imx-codec'
 CUSTOMER_RECIPES:freescale-layer += 'imx-lib'
 CUSTOMER_RECIPES:openembedded-layer += 'opencl-icd-loader'
 CUSTOMER_RECIPES:openembedded-layer += 'opencl-headers'
-PREFERRED_VERSION_gstreamer1.0-plugins-base:mx9-nxp-bsp = "1.24.7.imx"
-PREFERRED_VERSION_gstreamer1.0-plugins-bad:mx9-nxp-bsp  = "1.24.7.imx"
-PREFERRED_VERSION_gstreamer1.0-plugins-good:mx9-nxp-bsp = "1.24.7.imx"
-PREFERRED_VERSION_gstreamer1.0:mx9-nxp-bsp = "1.24.7.imx"
 
 <2> startup we will find that weston starts under g2d acceleration
 
