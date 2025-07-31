@@ -371,8 +371,14 @@ J31 is a microphone interface
 		  Subdevices: 1/1
 		  Subdevice #0: subdevice #0
 
-	arecord -Dplughw:2,0 -r 44100 -f S16_LE -c 2 -d 5 record.wav
-	aplay record.wav -Dhw:2,0
+	# The MIC input of the AUDIO CODEC WM8904 on the iMX95 EVK is routed to IN2L.
+	amixer -c 2 set "Capture" cap
+	amixer -c 2 set 'Left Capture Inverting Mux' 'IN2L'
+	amixer -c 2 set 'Right Capture Inverting Mux' 'IN2R'
+	amixer -c 2 set 'Capture' '31'
+	arecord -D hw:2,0 -V mono -c 2 -f S16_LE -r 48000 -t wav mic.wav
+
+	aplay mic.wav -Dhw:2,0
 
 5.8 FLEXCAN
 -----------
