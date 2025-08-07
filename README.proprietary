@@ -437,6 +437,8 @@ After system boots up, run below commands
 2.4.2 BT
 --------
 
+Note: Switch SW1_1 on the back of the carrier board to ON to enable BT.(i.MX95 Only)
+
 After system boots up, run below commands to run BT feature
 
 	# modprobe btnxpuart
