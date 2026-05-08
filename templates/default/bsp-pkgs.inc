@@ -12,4 +12,5 @@ IMAGE_INSTALL += "iproute2-tc"
 IMAGE_INSTALL += "devmem2"
 IMAGE_INSTALL += "imx-secure-enclave"
 IMAGE_INSTALL += "v4l-utils"
+IMAGE_INSTALL += "pktgen-scripts"
 require conf/make_nxp_imx9_wic.inc
